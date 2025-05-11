@@ -28,8 +28,11 @@ pipeline {
             }
         }
         stage('run container') {
-            steps {
-                sh 'docker run -d --name devops-web-project-server --label devops-web-project-server -p 8081:8080 gatojaazz/devops-web-project:v1'
+              steps {
+        sh '''
+            docker rm -f devops-web-project-server || true
+            docker run -d --name devops-web-project-server --label devops-web-project-server -p 8081:8080 gatojaazz/devops-web-project:v1
+        '''
             }
         }
     }
